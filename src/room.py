@@ -2,39 +2,23 @@
 # description attributes.
 
 class Room:
-    def __init__(self, name, description, items = []):
+    def __init__(self, name, description, items=[]):
         self.name = name
         self.description = description
         self.items = items
-
         self.n_to = None
         self.e_to = None
         self.s_to = None
         self.w_to = None
 
-    def add_items(self, items):
-        self.items.extend(items)
-        return self.items
-
     def add_item(self, item):
         self.items.append(item)
 
-    def remove_item(self, name):
-        item = None
-        item_index = None
+    def remove_item(self, item):
+        self.items.remove(item)
 
-        for indx, itm in enumerate(self.items):
-            if itm.name.lower() == name:
-                item = itm
-                item_index = indx
-                break
-            if item:
-                return self.items.pop(item_index)
-            else: 
-                return False
-
-    def __item_string__(self):
-        return "\n".join(str(item) for item in self.items)
-
-    def __str__(self):
-        return f"\n{self.name} \n{self.description} \n{self.__item_string__}"
+    def item_string(self):
+        if len(self.items) == 0:
+            print("\n No Item available \n")
+        else:
+            print(f" \nItems on the ground: => {', '.join([item.name for item in self.items])} <=\n")
